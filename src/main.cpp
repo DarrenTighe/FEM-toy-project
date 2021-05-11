@@ -21,7 +21,7 @@ int main() {
     int screenHeight = 900;
 
     raylib::Color textColor(DARKGRAY);
-    raylib::Window w(screenWidth, screenHeight, "Raylib C++ Starter Kit Example");
+    raylib::Window w(screenWidth, screenHeight, "FEM");
 
     Fem fem = Fem();
     fem.addnode(node{100, 100, degreesoffreedom{true, true, true}}); //fixed endpoint

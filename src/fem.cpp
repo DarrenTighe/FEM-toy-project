@@ -124,6 +124,11 @@ Eigen::MatrixXf Fem::getGlobalStiffnessMatrix(){
    
     std::vector<Eigen::MatrixXf> transformedStiffnessMatrices;
     for (std::vector<connection>::iterator it = connections.begin(); it != connections.end(); ++it){
+        
+        // translate local to global, e.g
+        // | a, b | | u1 |   | a, 0, b | | u1 |
+        // | c, d | | u3 | = | 0, 0, 0 | | u2 |
+        //                   | c, 0, d | | u3 |
         connection c = *it;
         int ind_i = getNodeIndex(c.inode);
         int ind_j = getNodeIndex(c.jnode);
@@ -135,17 +140,12 @@ Eigen::MatrixXf Fem::getGlobalStiffnessMatrix(){
         kc(ind_j, ind_i) = local(1,0);
         kc(ind_j, ind_j) = local(0,1);
 
+        // add this connection's stiffness to the global stiffness
         k = k + kc;
     }
 
     return k;
 }
-
-// Eigen::MatrixXf Fem::trimFixedDofFromMatrix(Eigen::MatrixXd global){
-//     // 1d
-//     for 
-
-// }
 
 
 
